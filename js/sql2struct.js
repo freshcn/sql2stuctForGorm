@@ -187,13 +187,24 @@ new Vue({
 // 首字母大写
 function titleCase(str) {
 
-    var array = str.toLowerCase().split("_");
+    var array = str.toLowerCase().split("_"),
+    upperArr = getUpperChar();
+    
     for (var i = 0; i < array.length; i++) {
-        array[i] = array[i][0].toUpperCase() + array[i].substring(1, array[i].length);
+        if (upperArr.indexOf(array[i]) >= 0) {
+            array[i] = array[i].toUpperCase()
+        } else {
+            array[i] = array[i][0].toUpperCase() + array[i].substring(1, array[i].length);
+        }
     }
     var string = array.join("");
 
     return string;
+}
+
+//　需要特别处理的全大写的关键词
+function getUpperChar() {
+    return ["id", "ip", "api"]
 }
 
 // 类型映射
