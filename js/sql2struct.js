@@ -204,7 +204,7 @@ function titleCase(str) {
 
 //　需要特别处理的全大写的关键词
 function getUpperChar() {
-    return ["id", "ip", "api"]
+    return ["id", "ip", "api", "uuid"]
 }
 
 // 类型映射
