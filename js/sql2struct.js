@@ -62,9 +62,10 @@ new Vue({
                 this.structContent = 'invalid sql'
                 return
             }
-            var tableComment = res[res.length-1].match(/comment=\'(.*)\'/i)
-            var types = this.typeMap
-            var structResult = 'type '
+            var tableComment = res[res.length-1].match(/comment=\'(.*)\'/i),
+            types = this.typeMap,
+            structResult = 'type ',
+            pk = val.match(/PRIMARY KEY\s\(`([A-Za-z_]+)`\)/);
             // console.log(res)
             for (var i = 0, len = res.length; i < len; i++) {
                 // console.log('res:', i, '  ---', res[i])
@@ -99,7 +100,9 @@ new Vue({
                             if (this.useGorm) {
                                 var gorm = ["column:"+fieldJsonName, "type:"+field[2]]
 
-
+                                if (pk[1] != undefined && field[1] == pk[1]) {
+                                    gorm.push("PRIMARY_KEY")
+                                }
                                 structArr.push('gorm:"'+gorm.join(';')+'"')
                             }
                             if (this.useJson) {
